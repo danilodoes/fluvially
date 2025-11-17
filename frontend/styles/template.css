@@ -1,0 +1,146 @@
+body {
+  background-color: #fff9f2;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Top bar */
+.navbar {
+  background-color: #4d7a05;
+  height: 80px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+/* Sidebar and overlay */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  height: 100%;
+  background: #4d7a05;
+  color: white;
+  padding: 20px;
+  transition: right 0.28s ease;
+  z-index: 1100;
+  box-shadow: -6px 0 18px rgba(0, 0, 0, 0.15);
+  border-left: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+.sidebar .close-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: white;
+  background: transparent;
+  border: none;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s;
+  z-index: 1050;
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    /* CORREÇÃO: Adicionamos padding horizontal para parecer um item de menu */
+    padding: 10px 20px 10px 15px; /* Top, Right, Bottom, Left */
+    font-weight: 500;
+    margin-bottom: 2px; /* Pequeno espaçamento entre os itens */
+    transition: background-color 0.2s, color 0.2s;
+    border-radius: 5px; /* Cantos arredondados para efeito de botão */
+}
+
+/* Efeito Hover e Ativo (para indicar que é clicável) */
+.sidebar a:hover,
+.sidebar a.active { /* Se você adicionar a classe 'active' via JS ao link selecionado */
+    background-color: #65b32e; /* Um verde mais claro do FluviAlly */
+    color: white;
+    /* Opcional: Adiciona um bold no hover */
+    font-weight: bold; 
+}
+
+/* NOVO: Estilo para os Títulos/Separadores de Seção */
+.sidebar-section-title {
+    /* CORREÇÃO: Removemos a estilização de link e focamos em rótulo */
+    color: #b0d86a; /* Um verde ainda mais claro para o rótulo */
+    font-weight: bold;
+    padding: 15px 15px 5px 15px; /* Mais padding superior e menos inferior */
+    font-size: 0.95rem; /* Um pouco menor */
+    text-transform: uppercase; /* Dá mais cara de separador */
+    display: block;
+    cursor: default; /* Remove o cursor de link */
+}
+
+.sidebar hr {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Content */
+.content {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 40px;
+  margin: 20px;
+}
+
+.fab-container {
+    /* Ancoragem na tela */
+    position: fixed;
+    bottom: 30px;
+    right: 30px; 
+    z-index: 1000;   
+    background-color: #4d7a05; 
+    border-radius: 50%; 
+    width: 60px; 
+    height: 60px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para destacá-lo */
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fab-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    background-color: #fff; 
+    transform: scale(1.05);
+}
+
+.fab-icon {
+    width: 70px; /* Tamanho do ícone */
+    height: 70px;
+    object-fit: contain; /* Garante que a imagem se ajuste bem */
+
+}
+
+@media screen and (max-width: 500px) {
+  #mainContent{
+    padding: 0 !important;
+  }
+}

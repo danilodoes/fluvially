@@ -1,0 +1,67 @@
+.status-container {
+    max-width: 80%;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0,0,0,0.15);
+}
+
+
+.status-header {
+    background-color: #4c8700;
+    color: white;
+    padding: 15px 25px;
+    font-size: 18px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
+.status-content {
+    background-color: white;
+    border-top: none;
+    padding: 30px 10px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.status-label {
+    background-color: #fff7ee;
+    border: 1px solid #4CAF50;
+    color: #7b5f39;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 25px;
+    width: 60%;
+    text-align: center;
+    margin-right: 2%;
+}
+
+.status-badge {
+    color: white;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-align: center;
+    width: 40%;
+    /* border: 2px solid #3b3b3b; */
+}
+
+.status-online {
+    background-color: #4CAF50;
+}
+
+.status-offline {
+    background-color: #FF0000;
+}
+
+@media screen and (max-width: 800px) {
+  .status-container{
+    min-width: 100%;
+  }
+}

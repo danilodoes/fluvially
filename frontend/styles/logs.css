@@ -1,0 +1,60 @@
+ .container {
+     max-width: 900px;
+     border-radius: 25px;
+     overflow: hidden;
+     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+     padding: 0;
+     margin-top: 0;
+     margin-bottom: 0;
+ }
+
+
+ .header {
+     background-color: #4c8700;
+     color: white;
+     padding: 15px 25px;
+     font-size: 18px;
+ }
+
+
+ .table-responsive-scroll {
+     overflow-x: auto;
+     width: 100%;
+     border-bottom-left-radius: 25px;
+     border-bottom-right-radius: 25px;
+ }
+
+
+ .container table {
+     width: 100%;
+     border-collapse: collapse;
+     min-width: 450px;
+ }
+
+ .container thead th {
+     background-color: #65b32e;
+     color: white;
+     text-align: left;
+     padding: 10px;
+     font-size: 16px;
+     border: none;
+ }
+
+ .container tbody td {
+
+     border: 1px solid #e0e0e0;
+     padding: 8px;
+     font-size: 15px;
+ }
+
+
+ .container tbody tr:nth-child(even) {
+     background-color: #f9f9f9;
+ }
+
+
+ .container table,
+ .container th,
+ .container td {
+     border-collapse: collapse;
+ }

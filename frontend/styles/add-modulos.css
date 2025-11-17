@@ -1,0 +1,98 @@
+.add-module-container {
+    width: 500px; 
+    border-radius: 25px;
+    overflow: hidden; 
+    box-shadow: 0 0 5px rgba(0,0,0,0.15);
+    background-color: #4c8700; 
+    position: relative; 
+    padding-bottom: 30px; 
+}
+
+.add-module-header {
+    color: white; 
+    padding: 15px 25px;
+    font-size: 18px;
+    display: none; 
+}
+
+.add-module-content {
+    padding: 30px 40px;
+}
+
+.module-field-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; 
+}
+
+.module-label {
+    color: white; 
+    font-weight: bold;
+    width: 30%; 
+    text-align: left;
+    flex-shrink: 0; 
+}
+
+.module-input {
+    background-color: white;
+    border: none; 
+    border-radius: 25px; 
+    padding: 10px 20px;
+    color: #3b3b3b; 
+    font-weight: 500;
+    width: 65%; 
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); 
+    outline: none; 
+}
+
+.module-input::placeholder {
+    color: #888; 
+}
+
+.module-input:focus {
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1), 0 0 0 2px rgba(76, 135, 0, 0.5); 
+}
+
+.fab-add-module-container {
+    position: absolute; 
+    
+    bottom: 25px; 
+    right: 40px;     
+    background-color: white; 
+    border-radius: 12px; 
+    width: 50px; 
+    height: 50px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.fab-add-module-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+.fab-add-module-container i {
+    font-size: 2.5rem; 
+    color: #4d7a05; 
+    font-weight: bold;
+}
+
+.add-module-container {
+    padding-bottom: 60px; 
+    position: relative; 
+}
+
+.toast.text-bg-success {
+    background-color: #4d7a05 !important; 
+    color: white !important;
+}
+
+.toast-body i.bi-check-circle-fill {
+    font-size: 1.1rem;
+}

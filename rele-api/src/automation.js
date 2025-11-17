@@ -1,6 +1,7 @@
 import axios from "axios";
 import { saveLog } from "./log.js";
 
+
 let ultimoEstado = null;
 let ultimoAcionamento = 0;
 

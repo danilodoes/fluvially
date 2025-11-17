@@ -1,6 +1,6 @@
 import { User } from "../models/User.js";
 import bcrypt from "bcrypt";
-import createUserToken from "../helpers/createusertoken.js";
+import {createUserToken} from "../utils/token.js";
 
 
 export default class UserController {

@@ -1,6 +1,10 @@
-// src/controllers/moduleController.js
-import { Module } from "../models/Module.js";
 
+import { Module } from "../models/Module.js";
+import { nc } from "../app.js";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export class ModuleController {
   // Criar novo
@@ -9,7 +13,11 @@ export class ModuleController {
       const { name, token, ip } = req.body;
 
       if (!name || name.length !== 4)
-        return res.status(400).json({ error: "O campo 'name' deve conter 4 nomes (um para cada porta)." });
+        return res
+          .status(400)
+          .json({
+            error: "O campo 'name' deve conter 4 nomes (um para cada porta).",
+          });
 
       const newModule = await Module.create({ name, token, ip });
       res.status(201).json(newModule);
@@ -34,7 +42,8 @@ export class ModuleController {
   static async getById(req, res) {
     try {
       const module = await Module.findById(req.params.id);
-      if (!module) return res.status(404).json({ error: "Módulo não encontrado." });
+      if (!module)
+        return res.status(404).json({ error: "Módulo não encontrado." });
       res.status(200).json(module);
     } catch (err) {
       console.error("Erro ao buscar módulo:", err);
@@ -51,7 +60,8 @@ export class ModuleController {
         { name, token, ip },
         { new: true }
       );
-      if (!updatedModule) return res.status(404).json({ error: "Módulo não encontrado." });
+      if (!updatedModule)
+        return res.status(404).json({ error: "Módulo não encontrado." });
       res.status(200).json(updatedModule);
     } catch (err) {
       console.error("Erro ao atualizar módulo:", err);
@@ -59,11 +69,12 @@ export class ModuleController {
     }
   }
 
-//   deletar
+  //   deletar
   static async delete(req, res) {
     try {
       const deletedModule = await Module.findByIdAndDelete(req.params.id);
-      if (!deletedModule) return res.status(404).json({ error: "Módulo não encontrado." });
+      if (!deletedModule)
+        return res.status(404).json({ error: "Módulo não encontrado." });
       res.status(200).json({ message: "Módulo removido com sucesso." });
     } catch (err) {
       console.error("Erro ao excluir módulo:", err);
@@ -71,30 +82,104 @@ export class ModuleController {
     }
   }
 
-  // Gerar comando
-  static generateCommand(req, res) {
+  static async generateCommand(req, res) {
     try {
       const { mode, position, value, id } = req.body;
 
       if (!["pulse", "set"].includes(mode))
-        return res.status(400).json({ error: "Modo inválido, use 'pulse' ou 'set'." });
+        return res
+          .status(400)
+          .json({ error: "Modo inválido, use 'pulse' ou 'set'." });
       if (position < 1 || position > 4)
-        return res.status(400).json({ error: "A posição deve estar entre 1 e 4." });
-      if (![0, 1].includes(value))
-        return res.status(400).json({ error: "O valor deve ser 0 ou 1." });
+        return res
+          .status(400)
+          .json({ error: "A posição deve estar entre 1 e 4." });
+      // if (![0, 5000].includes(value))
+      //   return res.status(400).json({ error: "O valor deve ser 0 ou 1." });
 
       const command = {
-        id : "id",
+        id,
         action: "relay",
         mode,
         position,
         value,
       };
 
-      res.status(200).json(command);
+      console.log(command);
+
+      if (!nc) return res.status(500).json({ error: "NATS não inicializado." });
+
+      nc.publish("command", JSON.stringify(command));
+
+      res.status(200).json({ message: "Comando enviado!", command });
     } catch (err) {
       console.error("Erro ao gerar comando:", err);
       res.status(500).json({ error: "Erro interno ao gerar comando." });
     }
   }
+
+  static async getStatus(req, res) {
+    try {
+      if (!nc) return res.status(500).json({ error: "NATS não inicializado." });
+
+      // cria um subscription temporário pra ouvir 1 msg do tópico "status"
+      let statusData = null;
+
+      const sub = nc.subscribe("status", { max: 1 });
+
+      const timeout = new Promise((resolve) =>
+        setTimeout(() => resolve("timeout"), 2000)
+      );
+
+      const msgPromise = (async () => {
+        for await (const m of sub) {
+          statusData = JSON.parse(m.data);
+          break;
+        }
+        return "ok";
+      })();
+
+      const result = await Promise.race([msgPromise, timeout]);
+
+      if (result === "timeout" || !statusData) {
+        return res.status(200).json({
+          status: "offline",
+          message: "Nenhum status recebido do módulo.",
+        });
+      }
+
+      return res.status(200).json({
+        status: "online",
+        data: statusData,
+      });
+    } catch (err) {
+      console.error("Erro ao verificar status:", err);
+      res.status(500).json({ error: "Erro interno ao verificar status." });
+    }
+  }
+static async getLogs(req, res) {
+    try {
+      // 1️ Conecta ao MongoDB
+      if (mongoose.connection.readyState === 0) {
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log("✅ Conectado ao MongoDB dentro do controller");
+      }
+
+      // 2️ Acessa a collection diretamente
+      const collection = mongoose.connection.collection("logs");
+
+      // 3️ Busca os últimos 50 logs ordenados pelo createdAt
+      const logs = await collection
+        .find({})
+        .sort({ createdAt: -1 })
+        .limit(50)
+        .toArray();
+
+      return res.status(200).json(logs);
+    } catch (err) {
+      console.error("Erro ao buscar logs:", err);
+      return res.status(500).json({ error: "Erro interno ao buscar logs." });
+    }
+  }
+
 }

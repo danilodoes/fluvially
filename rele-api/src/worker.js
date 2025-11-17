@@ -21,22 +21,36 @@ async function main() {
   // 3️ Inicia listener NATS
   sendCommand(nc, DEVICE_IP, TOKEN);
 
-  // 4️ Polling de status do módulo (independente do NATS)
+
+  // 4 Polling de status do módulo (independente do NATS)
   setInterval(async () => {
-  try {
-    const url = `http://${DEVICE_IP}/api/prd0025/inputs`;
-    const resposta = await axios.get(url, {
-      headers: { Authorization: `Bearer ${TOKEN}` },
-    });
+    try {
+      const url = `http://${DEVICE_IP}/api/prd0025/inputs`;
+      const resposta = await axios.get(url, {
+        headers: { Authorization: `Bearer ${TOKEN}` },
+      });
 
-    console.log("📡 Dados recebidos do módulo:", resposta.data);
+      console.log("📡 Dados recebidos do módulo:", resposta.data);
 
-    await analisarSensores(resposta.data, DEVICE_IP, TOKEN);
-  } catch (err) {
-    console.error("❌ Erro no polling do módulo:", err.message);
-  }
-}, 20000);
+      // publica o status no nats
+      if (nc) {
+        nc.publish(
+          "status",
+          JSON.stringify({
+            device: DEVICE_IP,
+            status: resposta.data,
+            timestamp: new Date().toISOString(),
+          })
+        );
+      } else {
+        console.warn("⚠️ NATS não inicializado — status não publicado");
+      }
 
+      await analisarSensores(resposta.data, DEVICE_IP, TOKEN);
+    } catch (err) {
+      console.error("❌ Erro no polling do módulo:", err.message);
+    }
+  }, 5000);
 }
 
 main();

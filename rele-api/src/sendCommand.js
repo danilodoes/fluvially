@@ -7,6 +7,7 @@ export async function sendCommand(nc, DEVICE_IP, TOKEN) {
   for await (const msg of sub) {
     try {
       const comando = JSON.parse(msg.data.toString());
+      console.log(comando)
       const url = `http://${DEVICE_IP}/api/prd0025/command`;
 
       const resposta = await axios.post(url, comando, {
