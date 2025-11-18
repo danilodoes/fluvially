@@ -1,5 +1,4 @@
-const tipoUsuario = "admin"; // ou 'user'
-
+const tipoUsuario = sessionStorage.getItem('tipoUsuario') || 'user';
 
 function renderNavbar() {
     const nav = document.querySelector(".funcionalidades");
@@ -8,6 +7,8 @@ function renderNavbar() {
     <a href="#acionamento-manual" class="fw-bold" style="margin-top: 50px;">Acionamentos Manuais</a>
     <a href="#estado-entradas" class="fw-bold">Estados dos sensores</a>
     <a href="#logs" class="fw-bold">Logs de Acionamentos</a>
+    <hr>
+    <a href="../../../frontend/index.html" class="fw-bold">Sair</a>
     
    `;
 
@@ -21,6 +22,8 @@ function renderNavbar() {
                    <span class="sidebar-section-title">Módulos</span>
         <a href="#add-modulos">Adicionar Módulos</a>
         <a href="#edit-modulos">Gerenciar Módulos</a>
+    <hr>
+        <a href="../../../frontend/index.html" class="fw-bold">Sair</a>
     
     `;
     }
@@ -52,7 +55,6 @@ function renderGerenciarModulos() {
         });
     }
 
-    // Estrutura completa da tabela
     return `
  <h5 class="section-title">Gerenciamento de Módulos</h5>
  <div class="d-flex justify-content-center align-items-start w-100">
@@ -91,7 +93,6 @@ function renderUserList() {
 
     let userListHtml = '';
     users.forEach(user => {
-        // Exibe os usuários. A senha é mascarada na visualização.
         userListHtml += `
       <div class="user-list-item" data-user-id="${user.id}">
         <div class="user-info">
@@ -126,15 +127,15 @@ function navegar() {
             <div class="device-card">
 
                 <div class="row text-center">
-                    <div class="col-6 control-btn sus" onclick="sus()">
+                    <div class="col-6 control-btn sus" onclick="chamarSus()">
                         <i class="bi bi-power"></i>
                         <div class="control-label">Irrigação Sustentável</div>
                     </div>
-                    <div class="col-6 control-btn com" onclick="com()">
+                    <div class="col-6 control-btn com" onclick="chamarCom()">
                         <i class="bi bi-power"></i>
                         <div class="control-label">Irrigação Comum</div>
                     </div>
-                    <div class="col-6 control-btn lib" onclick="lib()">
+                    <div class="col-6 control-btn lib" onclick="chamarLib()">
                         <i class="bi bi-power"></i>
                         <div class="control-label">Liberar Reservatório</div>
                     </div>
@@ -372,7 +373,6 @@ window.addEventListener("load", () => {
     const fabButton = document.getElementById('fabButton');
     if (fabButton) {
         fabButton.addEventListener('click', () => {
-            // Define a hash para a nova tela, disparando a navegação
             location.hash = "#agradecimento";
         });
     }

@@ -12,8 +12,6 @@
 <body>
   <!-- Navbar com logo -->
   <nav class="navbar d-flex justify-content-center align-items-center">
-    <!-- <img src="./assets/lg-name.png" alt="Logo FluviAlly" /> -->
-
     <div class="d-flex align-items-center">
       <span class="ms-2 fs-4 fw-bold text-light">Fluvi<span style="color: #b0d86a">Ally</span>
       </span>
@@ -26,15 +24,17 @@
       <h4>LOGIN</h4>
       <form>
         <div class="mb-3">
-          <input type="text" class="form-control" placeholder="Usuário" />
+          <input type="text" name="user" class="form-control user" placeholder="Usuário" />
         </div>
         <div class="mb-3">
-          <input type="password" class="form-control" placeholder="Senha" />
+          <input type="password" name="pass" class="form-control" placeholder="Senha" />
         </div>
-        <button type="submit" class="btn btn-login">Entrar</button>
+        <div class="btn btn-login login" >Entrar</div>
       </form>
     </div>
   </div>
+
+  <script src="./scripts/view/chamarTemplate.js"></script>
 </body>
 
 </html>
