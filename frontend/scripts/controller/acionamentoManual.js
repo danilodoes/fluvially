@@ -1,4 +1,4 @@
-// acionamentoManual.js
+
 
 function showCommandSentToast() {
     const toastElement = document.getElementById('commandSentToast');

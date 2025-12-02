@@ -94,8 +94,7 @@ export class ModuleController {
         return res
           .status(400)
           .json({ error: "A posição deve estar entre 1 e 4." });
-      // if (![0, 5000].includes(value))
-      //   return res.status(400).json({ error: "O valor deve ser 0 ou 1." });
+      
 
       const command = {
         id,
@@ -122,7 +121,7 @@ export class ModuleController {
     try {
       if (!nc) return res.status(500).json({ error: "NATS não inicializado." });
 
-      // cria um subscription temporário pra ouvir 1 msg do tópico "status"
+     
       let statusData = null;
 
       const sub = nc.subscribe("status", { max: 1 });
@@ -168,7 +167,7 @@ static async getLogs(req, res) {
       // 2️ Acessa a collection diretamente
       const collection = mongoose.connection.collection("logs");
 
-      // 3️ Busca os últimos 50 logs ordenados pelo createdAt
+      // 3️ Busca os últimos 50 logs
       const logs = await collection
         .find({})
         .sort({ createdAt: -1 })

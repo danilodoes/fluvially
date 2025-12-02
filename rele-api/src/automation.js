@@ -17,7 +17,7 @@ export async function analisarSensores(dado, DEVICE_IP, TOKEN) {
     const estadoAtual = valores.join(",");
     const agora = Date.now();
 
-    // só processa se mudou OU se já passaram 10s desde o último acionamento
+    // só processa se mudou ou se já passaram 10s desde o último acionamento
     if (estadoAtual === ultimoEstado && agora - ultimoAcionamento < 10000) return;
     ultimoEstado = estadoAtual;
 
@@ -28,21 +28,21 @@ export async function analisarSensores(dado, DEVICE_IP, TOKEN) {
 
     let tipoAcionamento = null;
 
-    // 1️⃣ Reservatório cheio → abre ladrão (A1)
+    // 1️ Reservatório cheio = abre ladrão (A1)
     if (S1 === 1) {
       await enviarComando(DEVICE_IP, TOKEN, 1, 20000);
       tipoAcionamento = "liberar reservatório (A1)";
       console.log("💧 Reservatório cheio — abrindo ladrão (A1)");
     }
 
-    // 2️⃣ Reservatório com água e solo seco → irrigação sustentável (A2)
+    // 2️ Reservatório com água e solo seco = irrigação sustentável (A2)
     else if (S1 === 0 && S2 === 1 && S3 === 1) {
       await enviarComando(DEVICE_IP, TOKEN, 2, 20000);
       tipoAcionamento = "irrigação sustentável (A2)";
       console.log("🌱 Solo seco + reservatório ok — irrigação sustentável (A2)");
     }
 
-    // 3️⃣ Reservatório vazio e solo seco → irrigação comum (A3)
+    // 3️ Reservatório vazio e solo seco = irrigação comum (A3)
     else if (S2 === 0 && S3 === 1) {
       await enviarComando(DEVICE_IP, TOKEN, 3, 20000);
       tipoAcionamento = "irrigação comum (A3)";
