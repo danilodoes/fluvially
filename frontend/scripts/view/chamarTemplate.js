@@ -11,5 +11,5 @@ loginBtn.addEventListener("click", () => {
     }
 
     sessionStorage.setItem('tipoUsuario', role)
-    window.location.href = '../../../frontend/template.html'
+    window.location.href = '../../../../fluvially/frontend/template.html'
 })
