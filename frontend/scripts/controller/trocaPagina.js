@@ -8,7 +8,7 @@ function renderNavbar() {
     <a href="#estado-entradas" class="fw-bold">Estados dos sensores</a>
     <a href="#logs" class="fw-bold">Logs de Acionamentos</a>
     <hr>
-    <a href="../../../../index.html" class="fw-bold">Sair</a>
+    <a href="../../../../fluvially" class="fw-bold">Sair</a>
     
    `;
 
@@ -23,7 +23,7 @@ function renderNavbar() {
         <a href="#add-modulos">Adicionar Módulos</a>
         <a href="#edit-modulos">Gerenciar Módulos</a>
     <hr>
-        <a href="../../../../index.html" class="fw-bold">Sair</a>
+        <a href="../../../../fluvially" class="fw-bold">Sair</a>
     
     `;
     }
