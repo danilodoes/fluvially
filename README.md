@@ -7,6 +7,12 @@ A solução reduz desperdício de água, facilita o monitoramento remoto e incen
 
 A proposta combina **tecnologia acessível**, **design intuitivo**, **impacto social** e **sustentabilidade urbana**, democratizando o uso de agricultura inteligente em comunidades, escolas e projetos públicos.
 
+- [Visite o meu site Fluvially](https://danilodoes.github.io/fluvially/)
+
+```Usuário: user (sem senha)```
+
+```Usuário: admin (sem senha)``` 
+
 ---
 
 # Funcionalidades Principais
